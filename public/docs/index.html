@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Watchtower API documentation" />
-    <title>API Docs — Watchtower</title>
+    <meta name="description" content="Watchtower API 日本語ドキュメント" />
+    <title>APIドキュメント — Watchtower</title>
     <link rel="icon" href="/mark.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="/styles.css?v=20260920-2" />
   </head>
@@ -15,37 +15,37 @@
           <img src="/mark.svg" alt="" width="34" height="34" />
           <span>Watchtower</span>
         </a>
-        <nav aria-label="Primary navigation">
-          <a class="nav-link" href="/">Console</a>
-          <a class="nav-link active" href="/docs/">API Docs</a>
+        <nav aria-label="メインナビゲーション">
+          <a class="nav-link" href="/">コンソール</a>
+          <a class="nav-link active" href="/docs/">APIドキュメント</a>
           <a class="nav-link" href="https://github.com/hit1023/Watchtower-API">GitHub</a>
         </nav>
       </header>
 
       <main class="docs-layout">
         <aside class="docs-nav">
-          <p class="section-kicker">DOCUMENTATION</p>
-          <a href="#overview">Overview</a>
-          <a href="#authentication">Authentication</a>
-          <a href="#create-watch">Create a watch</a>
-          <a href="#list-watches">List watches</a>
-          <a href="#run-watch">Run a watch</a>
-          <a href="#events">List events</a>
-          <a href="#errors">Errors</a>
-          <a href="#security">Security</a>
+          <p class="section-kicker">ドキュメント</p>
+          <a href="#overview">概要</a>
+          <a href="#authentication">認証</a>
+          <a href="#create-watch">監視を登録</a>
+          <a href="#list-watches">監視一覧</a>
+          <a href="#run-watch">監視を実行</a>
+          <a href="#events">変更イベント</a>
+          <a href="#errors">エラー</a>
+          <a href="#security">セキュリティ</a>
         </aside>
 
         <article class="docs-content">
           <section id="overview" class="docs-hero">
-            <p class="eyebrow"><span class="pulse-dot"></span> API REFERENCE / V0.1</p>
+            <p class="eyebrow"><span class="pulse-dot"></span> APIリファレンス / V0.1</p>
             <h1>Watchtower API</h1>
             <p>Webページの重要な変化を、検索・通知・AI連携に使える構造化イベントへ変換します。</p>
-            <div class="base-url"><span>BASE URL</span><code>https://watchtower-api.s-quad.com</code></div>
+            <div class="base-url"><span>ベースURL</span><code>https://watchtower-api.s-quad.com</code></div>
           </section>
 
           <section id="authentication" class="docs-section">
-            <p class="section-kicker">AUTHENTICATION</p>
-            <h2>Bearer token</h2>
+            <p class="section-kicker">認証</p>
+            <h2>Bearerトークン</h2>
             <p>すべての<code>/v1/</code>エンドポイントでAPIキーが必要です。キーはURLやリクエスト本文に含めないでください。</p>
             <pre><code>Authorization: Bearer YOUR_WATCHTOWER_API_KEY</code></pre>
           </section>
@@ -63,12 +63,12 @@
     "interval_minutes": 360,
     "importance_threshold": 0.7
   }'</code></pre>
-            <h3>Request fields</h3>
+            <h3>リクエスト項目</h3>
             <div class="parameter-table">
-              <div><code>url</code><span>string · required</span><p>公開HTTP/HTTPS URL</p></div>
-              <div><code>instruction</code><span>string · required</span><p>何を重要な変更とみなすか</p></div>
-              <div><code>interval_minutes</code><span>integer · default 60</span><p>15〜43,200分</p></div>
-              <div><code>importance_threshold</code><span>number · default 0.7</span><p>0〜1のイベント生成しきい値</p></div>
+              <div><code>url</code><span>文字列 · 必須</span><p>公開HTTP/HTTPS URL</p></div>
+              <div><code>instruction</code><span>文字列 · 必須</span><p>何を重要な変更とみなすか</p></div>
+              <div><code>interval_minutes</code><span>整数 · 既定値 60</span><p>15〜43,200分</p></div>
+              <div><code>importance_threshold</code><span>数値 · 既定値 0.7</span><p>0〜1のイベント生成しきい値</p></div>
             </div>
           </section>
 
@@ -111,7 +111,7 @@
           </section>
 
           <section id="errors" class="docs-section">
-            <p class="section-kicker">ERRORS</p>
+            <p class="section-kicker">エラー</p>
             <h2>共通エラー</h2>
             <div class="parameter-table compact">
               <div><code>400</code><p>入力値またはURLが不正</p></div>
@@ -123,7 +123,7 @@
           </section>
 
           <section id="security" class="docs-section">
-            <p class="section-kicker">SECURITY MODEL</p>
+            <p class="section-kicker">セキュリティモデル</p>
             <h2>安全な監視</h2>
             <p>ローカル・プライベートネットワークへのURLは拒否されます。リダイレクト先も再検証し、取得サイズとタイムアウトを制限しています。APIキーはCloudflare Secretとして保存されています。</p>
           </section>
@@ -132,7 +132,7 @@
 
       <footer>
         <span>WATCHTOWER API / V0.1</span>
-        <span><a href="/">OPEN CONSOLE</a></span>
+        <span><a href="/">コンソールを開く</a></span>
       </footer>
     </div>
   </body>
