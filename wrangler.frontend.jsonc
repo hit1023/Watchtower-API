@@ -1,0 +1,15 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "watchtower-web",
+  "compatibility_date": "2026-09-20",
+  "routes": [
+    {
+      "pattern": "watchtower.s-quad.com",
+      "custom_domain": true
+    }
+  ],
+  "assets": {
+    "directory": "./public",
+    "not_found_handling": "404-page"
+  }
+}

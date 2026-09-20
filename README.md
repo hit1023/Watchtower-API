@@ -2,7 +2,13 @@
 
 Watchtower turns meaningful webpage changes into structured events. Version 0.1 runs on Cloudflare Workers, stores watches and snapshots in D1, and can optionally use Workers AI to classify changes.
 
-Live service: `https://watchtower-api.hitoshi-nakayama-1023.workers.dev`
+## Live services
+
+- Dashboard: [watchtower.s-quad.com](https://watchtower.s-quad.com)
+- API documentation: [watchtower.s-quad.com/docs/](https://watchtower.s-quad.com/docs/)
+- API: [watchtower-api.s-quad.com](https://watchtower-api.s-quad.com)
+
+Both custom domains are served by Cloudflare with HTTPS. The dashboard keeps the API key in `sessionStorage`, so it is removed when the browser session ends.
 
 ## What works
 
@@ -50,6 +56,15 @@ The production Worker and APAC D1 database are provisioned. For subsequent relea
 2. Apply any new migrations with `npm run db:migrate:remote`.
 3. Validate with `npm run check`.
 4. Deploy with `npm run deploy`.
+
+Deploy the dashboard and documentation separately with:
+
+```bash
+npm run check:frontend
+npm run deploy:frontend
+```
+
+The API and static frontend use separate Workers. Their custom domains are declared in `wrangler.jsonc` and `wrangler.frontend.jsonc`; Cloudflare manages the DNS records and certificates.
 
 The production `WATCHTOWER_API_KEY` is stored as a Cloudflare Secret. Rotate it with `npx wrangler secret put WATCHTOWER_API_KEY`.
 

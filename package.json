@@ -9,9 +9,11 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "check": "npm run types && npm run typecheck && npm test && wrangler deploy --dry-run",
+    "check:frontend": "wrangler deploy --config wrangler.frontend.jsonc --dry-run",
     "db:migrate:local": "wrangler d1 migrations apply watchtower-db --local",
     "db:migrate:remote": "wrangler d1 migrations apply watchtower-db --remote",
-    "deploy": "wrangler deploy"
+    "deploy": "wrangler deploy",
+    "deploy:frontend": "wrangler deploy --config wrangler.frontend.jsonc"
   },
   "devDependencies": {
     "@cloudflare/vitest-plugin": "^1.1.13",

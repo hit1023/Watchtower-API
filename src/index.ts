@@ -4,6 +4,27 @@ import { validatePublicUrl } from "./url";
 import { runWatch } from "./watch";
 
 const MAX_PAGE_SIZE = 100;
+const ALLOWED_ORIGINS = new Set(["https://watchtower.s-quad.com"]);
+
+function allowedOrigin(request: Request): string | null {
+  const origin = request.headers.get("origin");
+  if (!origin) return null;
+  if (ALLOWED_ORIGINS.has(origin)) return origin;
+  const hostname = new URL(request.url).hostname;
+  if ((hostname === "127.0.0.1" || hostname === "localhost") && origin.startsWith("http://localhost:")) return origin;
+  return null;
+}
+
+function withCors(request: Request, response: Response): Response {
+  const origin = allowedOrigin(request);
+  if (!origin) return response;
+  response.headers.set("access-control-allow-origin", origin);
+  response.headers.set("access-control-allow-headers", "authorization, content-type");
+  response.headers.set("access-control-allow-methods", "GET, POST, OPTIONS");
+  response.headers.set("access-control-max-age", "86400");
+  response.headers.append("vary", "Origin");
+  return response;
+}
 
 function integerParam(value: string | null, fallback: number, maximum = MAX_PAGE_SIZE): number {
   if (value === null) return fallback;
@@ -125,14 +146,18 @@ export default {
   async fetch(request, env): Promise<Response> {
     const requestId = crypto.randomUUID();
     try {
+      if (request.method === "OPTIONS") {
+        const origin = allowedOrigin(request);
+        return origin ? withCors(request, new Response(null, { status: 204 })) : error("Origin not allowed", 403);
+      }
       const response = await route(request, env);
       response.headers.set("x-request-id", requestId);
       response.headers.set("x-content-type-options", "nosniff");
-      return response;
+      return withCors(request, response);
     } catch (caught) {
-      if (caught instanceof HttpError) return error(caught.message, caught.status, caught.details);
+      if (caught instanceof HttpError) return withCors(request, error(caught.message, caught.status, caught.details));
       console.error(JSON.stringify({ event: "request_failed", requestId, error: String(caught) }));
-      return error("Internal server error", 500);
+      return withCors(request, error("Internal server error", 500));
     }
   },
 

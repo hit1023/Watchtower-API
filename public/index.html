@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Watchtower — Webの重要な変化だけを構造化イベントとして監視します。" />
+    <title>Watchtower — Change intelligence</title>
+    <link rel="icon" href="/mark.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/styles.css" />
+    <script src="/app.js" type="module"></script>
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <a class="brand" href="/" aria-label="Watchtower home">
+          <img src="/mark.svg" alt="" width="34" height="34" />
+          <span>Watchtower</span>
+        </a>
+        <nav aria-label="Primary navigation">
+          <a class="nav-link active" href="/">Console</a>
+          <a class="nav-link" href="/docs/">API Docs</a>
+          <a class="nav-link" href="https://github.com/hit1023/Watchtower-API">GitHub</a>
+        </nav>
+      </header>
+
+      <main>
+        <section class="hero">
+          <div>
+            <p class="eyebrow"><span class="pulse-dot"></span> CHANGE INTELLIGENCE</p>
+            <h1>Webの変化を、<br /><span>判断できるシグナル</span>へ。</h1>
+            <p class="hero-copy">
+              URLを登録するだけで、ページのノイズを除去し、意味のある変更だけを検出。履歴と根拠をAPIで扱えます。
+            </p>
+          </div>
+          <div class="hero-status" aria-label="System status">
+            <span class="status-orb"></span>
+            <div>
+              <small>SYSTEM STATUS</small>
+              <strong>Operational</strong>
+            </div>
+          </div>
+        </section>
+
+        <section class="connect-panel panel">
+          <div>
+            <p class="section-kicker">01 / CONNECT</p>
+            <h2>APIへ接続</h2>
+            <p>キーはこのタブのセッション内だけに保存され、サーバーや永続ストレージには送られません。</p>
+          </div>
+          <form id="connect-form" class="connect-form">
+            <label for="api-key">Watchtower API key</label>
+            <div class="input-action">
+              <input id="api-key" name="api-key" type="password" autocomplete="off" placeholder="Paste your API key" minlength="24" required />
+              <button class="button primary" type="submit">Connect</button>
+            </div>
+            <p id="connection-state" class="form-state" role="status">Not connected</p>
+          </form>
+        </section>
+
+        <div id="console" class="console-grid is-locked" aria-live="polite">
+          <section class="panel create-panel">
+            <div class="panel-heading">
+              <div>
+                <p class="section-kicker">02 / OBSERVE</p>
+                <h2>監視を追加</h2>
+              </div>
+              <span class="number-badge">NEW</span>
+            </div>
+            <form id="watch-form" class="stack-form">
+              <label for="watch-url">Target URL</label>
+              <input id="watch-url" type="url" placeholder="https://example.com/pricing" required />
+
+              <label for="instruction">What matters?</label>
+              <textarea id="instruction" rows="4" placeholder="料金、無料枠、利用制限の変更だけを検出" required></textarea>
+
+              <div class="two-columns">
+                <div>
+                  <label for="interval">Interval</label>
+                  <select id="interval">
+                    <option value="60">Every hour</option>
+                    <option value="360" selected>Every 6 hours</option>
+                    <option value="720">Every 12 hours</option>
+                    <option value="1440">Every day</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="threshold">Importance</label>
+                  <select id="threshold">
+                    <option value="0.5">Balanced</option>
+                    <option value="0.7" selected>Important only</option>
+                    <option value="0.9">Critical only</option>
+                  </select>
+                </div>
+              </div>
+              <button class="button primary wide" type="submit">Create watch <span>→</span></button>
+              <p id="watch-form-state" class="form-state" role="status"></p>
+            </form>
+          </section>
+
+          <section class="panel watches-panel">
+            <div class="panel-heading">
+              <div>
+                <p class="section-kicker">03 / WATCHES</p>
+                <h2>監視中</h2>
+              </div>
+              <button id="refresh-button" class="icon-button" type="button" aria-label="Refresh data">↻</button>
+            </div>
+            <div id="watch-list" class="watch-list empty-state">
+              <p>APIへ接続すると監視一覧が表示されます。</p>
+            </div>
+          </section>
+
+          <section class="panel events-panel">
+            <div class="panel-heading">
+              <div>
+                <p class="section-kicker">04 / SIGNALS</p>
+                <h2>最近の変化</h2>
+              </div>
+              <span id="event-count" class="number-badge">0</span>
+            </div>
+            <div id="event-list" class="event-list empty-state">
+              <p>重要な変化が検出されると、ここに根拠付きで表示されます。</p>
+            </div>
+          </section>
+        </div>
+      </main>
+
+      <footer>
+        <span>WATCHTOWER / EDGE-NATIVE CHANGE MONITORING</span>
+        <span>POWERED BY CLOUDFLARE</span>
+      </footer>
+    </div>
+  </body>
+</html>
