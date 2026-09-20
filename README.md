@@ -70,6 +70,10 @@ APIと静的フロントエンドは別々のWorkersです。カスタムドメ�
 
 必要に応じて、Cloudflare Accessによる追加の認証レイヤーを導入できます。
 
+## 継続的デプロイ
+
+`main`ブランチへのpushを契機に、Cloudflare Workers BuildsがGitHubからコードを取得してデプロイします。`watchtower-api`は`npm run check`の完了後に`npm run deploy`を、`watchtower-web`は`npm run check:frontend`の完了後に`npm run deploy:frontend`を実行します。GitHub Actionsは引き続きテストを担当します。
+
 ## API一覧
 
 | メソッド | パス | 用途 |
