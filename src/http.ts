@@ -51,7 +51,7 @@ export async function authorize(request: Request, env: Env): Promise<boolean> {
   const configured = Reflect.get(env, "WATCHTOWER_API_KEY");
   if (typeof configured !== "string" || configured.length < 24) {
     const host = new URL(request.url).hostname;
-    return env.APP_ENV === "development" && (host === "localhost" || host === "127.0.0.1");
+    return String(env.APP_ENV) === "development" && (host === "localhost" || host === "127.0.0.1");
   }
   const header = request.headers.get("authorization");
   if (!header?.startsWith("Bearer ")) return false;

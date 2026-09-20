@@ -9,17 +9,17 @@
     "head_sampling_rate": 1
   },
   "vars": {
-    "APP_ENV": "development",
+    "APP_ENV": "production",
     "MAX_RESPONSE_BYTES": "1048576",
     "FETCH_TIMEOUT_MS": "10000",
-    "AI_ENABLED": "false",
+    "AI_ENABLED": "true",
     "AI_MODEL": "@cf/meta/llama-3.2-3b-instruct"
   },
   "d1_databases": [
     {
       "binding": "DB",
       "database_name": "watchtower-db",
-      "database_id": "local-watchtower-db",
+      "database_id": "9fc0d5a6-3c49-4a7f-a48d-c47cd5bf21fe",
       "migrations_dir": "migrations"
     }
   ],

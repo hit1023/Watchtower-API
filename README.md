@@ -2,6 +2,8 @@
 
 Watchtower turns meaningful webpage changes into structured events. Version 0.1 runs on Cloudflare Workers, stores watches and snapshots in D1, and can optionally use Workers AI to classify changes.
 
+Live service: `https://watchtower-api.hitoshi-nakayama-1023.workers.dev`
+
 ## What works
 
 - Register a URL with a natural-language monitoring instruction.
@@ -42,13 +44,14 @@ If a key is configured, add `-H 'Authorization: Bearer YOUR_KEY'`.
 
 ## Cloudflare deployment
 
+The production Worker and APAC D1 database are provisioned. For subsequent releases:
+
 1. Authenticate with `npx wrangler login`.
-2. Create the database: `npx wrangler d1 create watchtower-db`.
-3. Replace `local-watchtower-db` in `wrangler.jsonc` with the returned database ID.
-4. Apply migrations: `npm run db:migrate:remote`.
-5. Store a production key: `npx wrangler secret put WATCHTOWER_API_KEY`.
-6. Change `APP_ENV` to `production`. Set `AI_ENABLED` to `true` when desired.
-7. Validate with `npm run check`, then deploy with `npm run deploy`.
+2. Apply any new migrations with `npm run db:migrate:remote`.
+3. Validate with `npm run check`.
+4. Deploy with `npm run deploy`.
+
+The production `WATCHTOWER_API_KEY` is stored as a Cloudflare Secret. Rotate it with `npx wrangler secret put WATCHTOWER_API_KEY`.
 
 For production, place the Worker behind Cloudflare Access as an additional authentication layer.
 
