@@ -1,0 +1,2 @@
+# Copy to .dev.vars and replace this value for local authenticated requests.
+WATCHTOWER_API_KEY=replace-with-a-long-random-secret

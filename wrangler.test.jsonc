@@ -1,0 +1,22 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "watchtower-api-test",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-09-20",
+  "compatibility_flags": ["nodejs_compat"],
+  "vars": {
+    "APP_ENV": "development",
+    "MAX_RESPONSE_BYTES": "1048576",
+    "FETCH_TIMEOUT_MS": "10000",
+    "AI_ENABLED": "false",
+    "AI_MODEL": "@cf/meta/llama-3.2-3b-instruct"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "watchtower-db-test",
+      "database_id": "local-watchtower-db-test",
+      "migrations_dir": "migrations"
+    }
+  ]
+}

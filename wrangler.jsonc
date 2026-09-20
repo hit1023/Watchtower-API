@@ -1,0 +1,35 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "watchtower-api",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-09-20",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": {
+    "enabled": true,
+    "head_sampling_rate": 1
+  },
+  "vars": {
+    "APP_ENV": "development",
+    "MAX_RESPONSE_BYTES": "1048576",
+    "FETCH_TIMEOUT_MS": "10000",
+    "AI_ENABLED": "false",
+    "AI_MODEL": "@cf/meta/llama-3.2-3b-instruct"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "watchtower-db",
+      "database_id": "local-watchtower-db",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "ai": {
+    "binding": "AI"
+  },
+  "triggers": {
+    "crons": ["*/15 * * * *"]
+  },
+  "limits": {
+    "cpu_ms": 30000
+  }
+}
