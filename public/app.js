@@ -1,9 +1,13 @@
 const API_BASE = "https://watchtower-api.s-quad.com";
-const state = { key: sessionStorage.getItem("watchtower_api_key") ?? "" };
+const STORAGE_KEY = "watchtower_api_key";
+const persistentKey = localStorage.getItem(STORAGE_KEY) ?? "";
+const state = { key: persistentKey || sessionStorage.getItem(STORAGE_KEY) || "" };
 
 const elements = {
   connectForm: document.querySelector("#connect-form"),
   apiKey: document.querySelector("#api-key"),
+  rememberKey: document.querySelector("#remember-key"),
+  forgetKey: document.querySelector("#forget-key"),
   connectionState: document.querySelector("#connection-state"),
   console: document.querySelector("#console"),
   watchForm: document.querySelector("#watch-form"),
@@ -122,19 +126,39 @@ async function loadData() {
   elements.eventCount.textContent = String(events.length);
 }
 
-async function connect(key) {
+function storeKey(key, remember) {
+  if (remember) {
+    localStorage.setItem(STORAGE_KEY, key);
+    sessionStorage.removeItem(STORAGE_KEY);
+  } else {
+    sessionStorage.setItem(STORAGE_KEY, key);
+    localStorage.removeItem(STORAGE_KEY);
+  }
+}
+
+async function connect(key, remember = elements.rememberKey.checked) {
   state.key = key.trim();
   setStatus(elements.connectionState, "Connecting…");
   await loadData();
-  sessionStorage.setItem("watchtower_api_key", state.key);
+  storeKey(state.key, remember);
   elements.console.classList.remove("is-locked");
-  setStatus(elements.connectionState, "Connected to watchtower-api.s-quad.com", "success");
+  setStatus(elements.connectionState, remember ? "Connected · saved in this browser" : "Connected · saved for this tab", "success");
 }
 
 elements.connectForm.addEventListener("submit", async (event) => {
   event.preventDefault();
   try { await connect(elements.apiKey.value); }
   catch (error) { state.key = ""; setStatus(elements.connectionState, error.message, "error"); }
+});
+
+elements.forgetKey.addEventListener("click", () => {
+  localStorage.removeItem(STORAGE_KEY);
+  sessionStorage.removeItem(STORAGE_KEY);
+  state.key = "";
+  elements.apiKey.value = "";
+  elements.rememberKey.checked = false;
+  elements.console.classList.add("is-locked");
+  setStatus(elements.connectionState, "Saved key removed from this browser");
 });
 
 elements.watchForm.addEventListener("submit", async (event) => {
@@ -166,8 +190,10 @@ elements.refreshButton.addEventListener("click", async () => {
 
 if (state.key) {
   elements.apiKey.value = state.key;
-  connect(state.key).catch((error) => {
-    sessionStorage.removeItem("watchtower_api_key");
+  elements.rememberKey.checked = Boolean(persistentKey);
+  connect(state.key, Boolean(persistentKey)).catch((error) => {
+    localStorage.removeItem(STORAGE_KEY);
+    sessionStorage.removeItem(STORAGE_KEY);
     setStatus(elements.connectionState, error.message, "error");
   });
 }

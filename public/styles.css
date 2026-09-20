@@ -72,6 +72,11 @@ select { min-height: 48px; padding: 0 13px; border-radius: 9px; }
 input:focus, textarea:focus, select:focus { border-color: rgba(217,255,79,.7); box-shadow: 0 0 0 3px rgba(217,255,79,.08); }
 .input-action input { border-radius: 9px 0 0 9px; }
 .input-action .button { border-radius: 0 9px 9px 0; }
+.credential-options { display: flex; align-items: center; justify-content: space-between; gap: 18px; margin-top: 12px; }
+.connect-form .remember-option { display: inline-flex; align-items: center; gap: 9px; margin: 0; color: var(--muted); font-family: inherit; font-size: .75rem; line-height: 1.4; letter-spacing: 0; text-transform: none; cursor: pointer; }
+.remember-option input { width: 16px; min-height: 16px; height: 16px; margin: 0; padding: 0; accent-color: var(--acid); }
+.forget-button { padding: 0; color: var(--dim); background: transparent; border: 0; cursor: pointer; font-size: .72rem; text-decoration: underline; text-underline-offset: 3px; }
+.forget-button:hover { color: var(--ink); }
 .button { display: inline-flex; min-height: 48px; align-items: center; justify-content: center; gap: 16px; border: 0; padding: 0 22px; border-radius: 9px; cursor: pointer; text-decoration: none; font-weight: 700; font-size: .8rem; transition: transform .15s, filter .15s; }
 .button:hover { filter: brightness(1.07); transform: translateY(-1px); }
 .button:disabled { opacity: .45; cursor: wait; transform: none; }
@@ -162,6 +167,7 @@ pre { overflow-x: auto; margin: 22px 0 0; padding: 22px; background: #0a0c09; co
   .connect-panel, .create-panel, .watches-panel, .events-panel { padding: 24px 20px; }
   .input-action { grid-template-columns: 1fr; gap: 8px; }
   .input-action input, .input-action .button { border-radius: 9px; }
+  .credential-options { align-items: flex-start; flex-direction: column; gap: 10px; }
   .two-columns { grid-template-columns: 1fr; }
   .parameter-table > div { grid-template-columns: 1fr; gap: 6px; }
 }

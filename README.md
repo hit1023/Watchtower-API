@@ -8,7 +8,7 @@ Watchtower turns meaningful webpage changes into structured events. Version 0.1 
 - API documentation: [watchtower.s-quad.com/docs/](https://watchtower.s-quad.com/docs/)
 - API: [watchtower-api.s-quad.com](https://watchtower-api.s-quad.com)
 
-Both custom domains are served by Cloudflare with HTTPS. The dashboard keeps the API key in `sessionStorage`, so it is removed when the browser session ends.
+Both custom domains are served by Cloudflare with HTTPS. By default the dashboard keeps the API key in `sessionStorage`; the optional “remember” setting stores it in `localStorage` until the user removes it.
 
 ## What works
 

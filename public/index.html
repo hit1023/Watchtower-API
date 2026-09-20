@@ -45,13 +45,20 @@
           <div>
             <p class="section-kicker">01 / CONNECT</p>
             <h2>APIへ接続</h2>
-            <p>キーはこのタブのセッション内だけに保存され、サーバーや永続ストレージには送られません。</p>
+            <p>必要ならこのブラウザに保存できます。キーはWatchtower APIへの認証以外には使用されません。</p>
           </div>
           <form id="connect-form" class="connect-form">
             <label for="api-key">Watchtower API key</label>
             <div class="input-action">
               <input id="api-key" name="api-key" type="password" autocomplete="off" placeholder="Paste your API key" minlength="24" required />
               <button class="button primary" type="submit">Connect</button>
+            </div>
+            <div class="credential-options">
+              <label class="remember-option" for="remember-key">
+                <input id="remember-key" type="checkbox" />
+                <span>このブラウザに保存する</span>
+              </label>
+              <button id="forget-key" class="forget-button" type="button">保存したキーを削除</button>
             </div>
             <p id="connection-state" class="form-state" role="status">Not connected</p>
           </form>
